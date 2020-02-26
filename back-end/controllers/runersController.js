@@ -8,7 +8,7 @@ module.exports = {
             .catch((error) => res.status(500).json({ error }));
     },
     show: function (req, res, next) {
-        Runer.findByPk(req.params.id, { include: ['delivery'] })
+        Runer.findByPk(req.params.id)
             .then((runer) => { res.json({ runer }); })
             .catch((error) => res.status(500).json({ error }));
     },
@@ -28,7 +28,7 @@ module.exports = {
             .catch((error) => res.status(500).json({ error }));
     },
     update: function (req, res, next) {
-        Runer.findByPk(req.params.id, { include: ['delivery'] })
+        Runer.findByPk(req.params.id)
             .then((runer) => {
                 runer.update({
                     email: req.body.email,
@@ -47,7 +47,7 @@ module.exports = {
             .catch((error) => res.status(500).json({ error }));
     },
     delete: function (req, res, next) {
-        Runer.findByPk(req.params.id, { include: ['delivery'] })
+        Runer.findByPk(req.params.id)
             .then((runer) => {
                 runer.destroy()
                     .then((deletedRuner) => { res.json({ message: `${deletedRuner.firstname} has been deleted` }); })

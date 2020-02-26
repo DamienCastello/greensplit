@@ -8,7 +8,7 @@ module.exports = {
             .catch((error) => res.status(500).json({ error }));
     },
     show: function (req, res, next) {
-        Product.findByPk(req.params.id, { include: ['delivery'] })
+        Product.findByPk(req.params.id)
             .then((product) => { res.json({ product }); })
             .catch((error) => res.status(500).json({ error }));
     },
@@ -25,7 +25,7 @@ module.exports = {
             .catch((error) => res.status(500).json({ error }));
     },
     update: function (req, res, next) {
-        Product.findByPk(req.params.id, { include: ['delivery'] })
+        Product.findByPk(req.params.id)
             .then((product) => {
                 product.update({
                     name: req.body.name,
@@ -41,7 +41,7 @@ module.exports = {
             .catch((error) => res.status(500).json({ error }));
     },
     delete: function (req, res, next) {
-        Product.findByPk(req.params.id, { include: ['delivery'] })
+        Product.findByPk(req.params.id)
             .then((product) => {
                 product.destroy()
                     .then((deletedProduct) => { res.json({ message: `${deletedProduct.name} has been deleted` }); })

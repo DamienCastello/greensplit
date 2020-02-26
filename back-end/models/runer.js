@@ -27,10 +27,10 @@ module.exports = (sequelize, DataTypes) => {
     companyId: DataTypes.INTEGER
   }, {});
   Runer.associate = function (models) {
-    Runer.belongsTo(models.Company, {as: 'companies', onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT'})
-    Runer.hasMany(models.Delivery, {as: 'deliveries', onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT'})
+    Runer.belongsTo(models.Company, {foreignKey: 'companyId', as: 'companies', onDelete: 'SET NULL',
+    onUpdate: 'RESTRICT', hooks: true})
+    Runer.hasMany(models.Delivery, {foreignKey: 'runerId', as: 'runers', onDelete: 'CASCADE',
+    onUpdate: 'RESTRICT', hooks: true})
   };
   return Runer;
 };

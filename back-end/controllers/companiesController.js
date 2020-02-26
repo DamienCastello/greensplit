@@ -8,7 +8,7 @@ module.exports = {
             .catch((error) => res.status(500).json({ error }));
     },
     show: function (req, res, next) {
-        Company.findByPk(req.params.id, { include: ['delivery', 'product', 'runer'] })
+        Company.findByPk(req.params.id)
             .then((company) => { res.json({ company }); })
             .catch((error) => res.status(500).json({ error }));
     },
@@ -26,7 +26,7 @@ module.exports = {
             .catch((error) => res.status(500).json({ error }));
     },
     update: function (req, res, next) {
-        Company.findByPk(req.params.id, { include: ['delivery', 'product', 'runer'] })
+        Company.findByPk(req.params.id)
             .then((company) => {
                 company.update({
                     email: req.body.email,
@@ -43,7 +43,7 @@ module.exports = {
             .catch((error) => res.status(500).json({ error }));
     },
     delete: function (req, res, next) {
-        Company.findByPk(req.params.id, { include: ['delivery', 'product', 'runer'] })
+        Company.findByPk(req.params.id)
             .then((company) => {
                 company.destroy()
                     .then((deletedCompany) => { res.json({ message: `${deletedCompany.name} has been deleted` }); })

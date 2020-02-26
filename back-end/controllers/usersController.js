@@ -8,7 +8,7 @@ module.exports = {
             .catch((error) => res.status(500).json({ error }));
     },
     show: function (req, res, next) {
-        User.findByPk(req.params.id, { include: 'delivery' })
+        User.findByPk(req.params.id)
             .then((user) => { res.json({ user }); })
             .catch((error) => res.status(500).json({ error }));
     },
@@ -29,7 +29,7 @@ module.exports = {
             .catch((error) => res.status(500).json({ error }));
     },
     update: function (req, res, next) {
-        User.findByPk(req.params.id, { include: 'delivery' })
+        User.findByPk(req.params.id)
             .then((user) => {
                 user.update({
                     email: req.body.email,
@@ -49,7 +49,7 @@ module.exports = {
             .catch((error) => res.status(500).json({ error }));
     },
     delete: function (req, res, next) {
-        User.findByPk(req.params.id, { include: 'delivery' })
+        User.findByPk(req.params.id)
             .then((user) => {
                 user.destroy()
                     .then((deletedUser) => { res.json({ message: `${deletedUser.firstname} has been deleted` }); })

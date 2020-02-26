@@ -19,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     companyId: DataTypes.INTEGER
   }, {});
   Product.associate = function(models) {
-    Product.belongsTo(models.Company, {as: 'companies', onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT'})
+    Product.belongsTo(models.Company, {foreignKey: 'companyId', as: 'companies', onDelete: 'SET NULL',
+    onUpdate: 'RESTRICT', hooks: true})
   };
   return Product;
 };

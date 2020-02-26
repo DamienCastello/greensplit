@@ -30,15 +30,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
   Delivery.associate = function (models) {
-    Delivery.belongsTo(models.Company, { as: 'companies', onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT' })
-    Delivery.belongsTo(models.Runer, { as: 'runers', onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT' })
-    Delivery.belongsTo(models.User, { as: 'users', onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT' })
-    Delivery.belongsToMany(Product, { through: 'ProductsDeliveries', onDelete: 'RESTRICT',
+    Delivery.belongsTo(models.Company, {foreignKey: 'companyId', as: 'companies', onDelete: 'SET NULL',
+    onUpdate: 'RESTRICT', hooks: true })
+    Delivery.belongsTo(models.Runer, {foreignKey: 'runerId', as: 'runers', onDelete: 'SET NULL',
+    onUpdate: 'RESTRICT', hooks: true })
+    Delivery.belongsTo(models.User, {foreignKey: 'userId', as: 'users', onDelete: 'SET NULL',
+    onUpdate: 'RESTRICT', hooks: true })
+    Delivery.belongsToMany(Product, { through: 'ProductsDeliveries', onDelete: 'CASCADE',
     onUpdate: 'RESTRICT' });
-    Product.belongsToMany(Delivery, { through: 'ProductsDeliveries', onDelete: 'RESTRICT',
+    Product.belongsToMany(Delivery, { through: 'ProductsDeliveries', onDelete: 'CASCADE',
     onUpdate: 'RESTRICT' });
   };
   return Delivery;

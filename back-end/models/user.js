@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     address: DataTypes.STRING
   }, {});
   User.associate = function(models) {
-    User.hasMany(models.Delivery, {as: 'deliveries', onDelete: 'RESTRICT',
+    User.hasMany(models.Delivery, {foreignKey: 'userId', as: 'users', onDelete: 'CASCADE',
     onUpdate: 'RESTRICT'})
   };
   return User;

@@ -8,7 +8,7 @@ module.exports = {
             .catch((error) => res.status(500).json({ error }));
     },
     show: function (req, res, next) {
-        Delivery.findByPk(req.params.id, { include: ['product'] })
+        Delivery.findByPk(req.params.id)
             .then((delivery) => { res.json({ delivery }); })
             .catch((error) => res.status(500).json({ error }));
     },
@@ -27,7 +27,7 @@ module.exports = {
             .catch((error) => res.status(500).json({ error }));
     },
     update: function (req, res, next) {
-        Delivery.findByPk(req.params.id, { include: ['product'] })
+        Delivery.findByPk(req.params.id)
             .then((delivery) => {
                 delivery.update({
                     orderDate: req.body.orderDate,
@@ -45,10 +45,10 @@ module.exports = {
             .catch((error) => res.status(500).json({ error }));
     },
     delete: function (req, res, next) {
-        Delivery.findByPk(req.params.id, { include: ['product'] })
+        Delivery.findByPk(req.params.id)
             .then((delivery) => {
                 delivery.destroy()
-                    .then((deletedDelivery) => { res.json({ message: `delivery has been deleted` }); })
+                    .then((deletedDelivery) => { res.json({ message: `delivery with id ${deletedDelivery.id} has been deleted` }); })
                     .catch((error) => res.status(500).json({ error }));
             })
             .catch((error) => res.status(500).json({ error }));

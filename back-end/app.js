@@ -19,10 +19,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/companies', companiesRouter);
-app.use('/runers', runersRouter);
-app.use('/products', productsRouter);
-app.use('/deliveries', deliveriesRouter);
+app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/companies', companiesRouter);
+app.use('/api/v1/runers', runersRouter);
+app.use('/api/v1/products', productsRouter);
+app.use('/api/v1/deliveries', deliveriesRouter);
 
 module.exports = app;

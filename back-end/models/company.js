@@ -20,12 +20,12 @@ module.exports = (sequelize, DataTypes) => {
     address: DataTypes.STRING
   }, {});
   Company.associate = function(models) {
-    Company.hasMany(models.Runer, {as: 'runers', onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT'})
-    Company.hasMany(models.Product, {as: 'products', onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT'})
-    Company.hasMany(models.Delivery, {as: 'deliveries', onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT'})
+    Company.hasMany(models.Runer, {foreignKey: 'companyId', as: 'runers', onDelete: 'CASCADE',
+    onUpdate: 'RESTRICT', hooks: true})
+    Company.hasMany(models.Product, {foreignKey: 'companyId', as: 'products', onDelete: 'CASCADE',
+    onUpdate: 'RESTRICT', hooks: true})
+    Company.hasMany(models.Delivery, {foreignKey: 'companyId', as: 'deliveries', onDelete: 'CASCADE',
+    onUpdate: 'RESTRICT', hooks: true})
   };
   return Company;
 };
