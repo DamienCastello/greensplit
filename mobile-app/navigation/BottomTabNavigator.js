@@ -3,8 +3,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
-import loginForm from '../screens/public/loginForm';
-import signupForm from '../screens/public/signupForm';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -33,22 +31,6 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
         }}
       />
-      <BottomTab.Screen
-        name="Login"
-        component={loginForm}
-        options={{
-          title: 'test 1',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-code-working" />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Signup"
-        component={signupForm}
-        options={{
-          title: 'Test 2',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
-        }}
-      />
     </BottomTab.Navigator>
   );
 }
@@ -61,9 +43,5 @@ function getHeaderTitle(route) {
       return 'How to get started';
     case 'Links':
       return 'Links to learn more';
-    case 'Login':
-      return 'test login';
-    case 'Signup':
-      return 'test signup';
   }
 }

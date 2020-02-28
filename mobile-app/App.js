@@ -8,10 +8,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
-import store from "./store";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import persistor from "./store/persistor";
 
 const Stack = createStackNavigator();
 
@@ -52,16 +48,12 @@ export default function App(props) {
   } else {
     return (
       <View style={styles.container}>
-        <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
           <Stack.Navigator>
             <Stack.Screen name="Root" component={BottomTabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>
-        </PersistGate>
-      </Provider>
       </View>
     );
   }
