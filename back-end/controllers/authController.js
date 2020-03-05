@@ -1,9 +1,8 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models').User;
 const { getHost } = require('../utils/ip');
-const mailer = require('../mailer/mailer');
 const bcrypt = require('bcrypt');
-const { generateRandomString } = require('../utils/string');
+
 module.exports = {
     signIn: function (req, res, next) {
         /* By default passport save authenticated user in req.user object */
@@ -20,6 +19,7 @@ module.exports = {
         };
         /* Signin jwt with your SECRET key */
         const token = jwt.sign(user, process.env.JWT_SECRET);
+        console.log('token:', {token}, token)
         /* Return user and token in json response */
         res.json({ user, token });
     },
