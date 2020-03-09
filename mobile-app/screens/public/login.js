@@ -21,9 +21,9 @@ import { login } from '../../store/actions/auth';
 
 
 class LoginForm extends Component {
-  static navigationOptions = {
+  /*static navigationOptions = {
     title: 'Connexion',
-  };
+  };*/
   constructor(props) {
     super(props)
     this.state = {
@@ -33,6 +33,7 @@ class LoginForm extends Component {
   }
 
   loginUser = async () => {
+    console.log('enter here')
     const response = await this.props.login(this.state.email, this.state.password);
     if (response.status === 'error') {
       Toast.show({
@@ -40,18 +41,21 @@ class LoginForm extends Component {
         buttonText: 'Ok'
       })
     } else if (response.status === 'success') {
-      this.props.navigation.navigate('Map')
+      console.log("login response:", response)
     }
+    console.log("login response:", response)
   }
 
   render() {
     const { navigate } = this.props.navigation;
-    const { auth } = this.props;
-    if (auth.user && auth.user.isConnected) {
-      setTimeout(() => {
-        //TODO remove before production
-        navigate('Map')
-      }, 10)
+    const { user } = this.props.auth;
+    console.log("info", this.state, this.props)
+
+    if (user && user.isConnected) {
+      // setTimeout(() => {
+      //   //TODO remove before production
+      //   navigate('BottomTab')
+      // }, 10)
     }
     return (
 
@@ -85,16 +89,16 @@ class LoginForm extends Component {
 
             <View style={styles.flexCenterImg}>
               <View style={{ marginBottom: 200 }}>
-                            <TouchableOpacity onPress={() => this.loginUser}
-                                style={{marginTop: 10, alignSelf: 'center', backgroundColor: 'green'}}
-                                disabled={false}
-                                activeOpacity={0.2}>
-                                <Text>
-                                    ok
+                <TouchableOpacity onPress={() => this.loginUser}
+                  style={{ marginTop: 10, alignSelf: 'center', backgroundColor: 'green' }}
+                  disabled={false}
+                  activeOpacity={0.2}>
+                  <Text>
+                    ok
                                 </Text>
-                            </TouchableOpacity>
+                </TouchableOpacity>
 
-                        </View>
+              </View>
             </View>
           </KeyboardAvoidingView>
         </ScrollView>
@@ -128,8 +132,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'left',
-    marginBottom: 20,
-    fontFamily: 'Tinos_bold'
+    marginBottom: 20
   },
 
   yellowBorder: {
@@ -144,7 +147,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state
 })
 
 const mapDispatchToProps = {

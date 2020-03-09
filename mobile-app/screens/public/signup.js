@@ -17,16 +17,17 @@ import { Text, ScrollView, View, KeyboardAvoidingView, SafeAreaView, TouchableOp
 import { Form, Field } from 'react-native-validate-form';
 import InputField from '../../components/inputField';
 import Avatar from '../../components/avatar';
-//import { connect } from 'react-redux'
-//import { signup } from '../../../store/actions/auth';
+import { connect } from 'react-redux'
+import { signup } from '../../store/actions/auth';
 import { Toast, Root } from 'native-base';
 import Axios from 'axios';
 import url from '../../constants/url';
 
 
 
-const email = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,5}$/i.test(value) ? 'Please provide a valid email address.' : undefined;
-const requiredFields = ['avatar', 'email', 'firstName', 'lastname', 'age', 'city', 'zipcode', 'address', 'password', 'confirmPassword']
+
+//const email = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,5}$/i.test(value) ? 'Please provide a valid email address.' : undefined;
+//const requiredFields = ['avatar', 'email', 'firstName', 'lastname', 'age', 'city', 'zipcode', 'address', 'password', 'confirmPassword']
 
 class Signup extends Component {
     constructor(props) {
@@ -54,7 +55,7 @@ class Signup extends Component {
     }
 
     submitForm = async () => {
-        this.setState({ loading: true })
+        /*this.setState({ loading: true })
         let errors = [];
         requiredFields.forEach(item => {
             if (this.state[item].length < 1) {
@@ -82,6 +83,29 @@ class Signup extends Component {
                 })
             }
         }
+        this.setState({ loading: false })*/
+
+        this.setState({ loading: true })
+console.log("enter")
+            const response = await this.props.signup(this.state)
+            if (response.status === "success") {
+                Toast.show({
+                    text: 'Inscription réussie',
+                    position: 'top',
+                    type: 'success',
+                })
+                // setTimeout(() => {
+                //     this.props.navigation.navigate('BottomTab')
+                // }, 500)
+            }
+            else {
+                Toast.show({
+                    text: response.error.data.message,
+                    position: 'top',
+                    type: 'danger'
+                })
+            }
+        
         this.setState({ loading: false })
     }
 
@@ -274,4 +298,13 @@ const style = {
 }
 
 
-export default Signup;
+
+const mapStateToProps = (state) => ({
+
+})
+
+const mapDispatchToProps = {
+  signup
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup)
