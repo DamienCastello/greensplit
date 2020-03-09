@@ -7,15 +7,8 @@ module.exports = {
     signIn: function (req, res, next) {
         /* By default passport save authenticated user in req.user object */
         const user = {
-            id: req.user.id,
-            email: req.user.email,
-            firstName: req.user.firstName,
-            lastName: req.user.lastName,
-            isAdmin: req.user.isAdmin,
-            age: req.user.age,
-            city: req.user.city,
-            zipcode: req.user.zipcode,
-            address: req.user.address
+            email: req.body.email,
+            password: req.body.password
         };
         /* Signin jwt with your SECRET key */
         const token = jwt.sign(user, process.env.JWT_SECRET);

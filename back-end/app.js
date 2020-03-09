@@ -24,12 +24,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Initialize auth strategies config
-//localAuthStrategy;
-//jwtAuthStrategy;
+localAuthStrategy;
+jwtAuthStrategy;
 
 app.use('/', indexRouter);
-//app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/users', /*passport.authenticate('jwt', { session: false }),*/ usersRouter);
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/users', passport.authenticate('jwt', { session: false }), usersRouter);
 app.use('/api/v1/companies', companiesRouter);
 app.use('/api/v1/runers', runersRouter);
 app.use('/api/v1/products', productsRouter);

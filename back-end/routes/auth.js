@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage, limits: { fieldSize: 25 * 1024 * 1024 } });
 
 /* POST email and password and return jwt if authenticated successfull */
-router.post('/signin', passport.authenticate('local', { session: false }), authController.signIn);
+router.post('/signin', authController.signIn);
 
 /* POST create new user. multer create an object, we can access it with req.avatar */
 // TODO fix validationCode before avatar upload
