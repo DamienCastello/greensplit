@@ -12,11 +12,11 @@ module.exports = {
         };
         /* Signin jwt with your SECRET key */
         const token = jwt.sign(user, process.env.JWT_SECRET);
-        console.log('token:', {token}, token)
         /* Return user and token in json response */
         res.json({ user, token });
     },
     signUp: function (req, res, next) {
+        console.log("check file", req.file ? `${getHost()}/${req.file.path}` : null)
         User.create({
             email: req.body.email,
             password: req.body.password,
@@ -43,9 +43,12 @@ module.exports = {
                     zipcode: newUser.zipcode,
                     address: newUser.address
                 };
+                
                 //not incorporate yet
                 //mailer(userDatas, newUser.email, 'welcome');
                 const token = jwt.sign(userDatas, process.env.JWT_SECRET);
+                console.log("check token:", token)
+                console.log("check data", userDatas)
                 /* Return user and token in json response */
                 res.json({ user: userDatas, token });
             })

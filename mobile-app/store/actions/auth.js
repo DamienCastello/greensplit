@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { LOGIN, LOGOUT, LOG_IN_ERROR, CHANGE_PASSWORD, FORGET_PASSWORD, CHANGE_PASSWORD_ERROR, FORGET_PASSWORD_ERROR, DELETE_ACCOUNT, DELETE_ACCOUNT_ERROR } from '../types/auth';
-import { baseUrl } from '../../constants/url';
+import { LOGIN, LOGOUT, CHANGE_PASSWORD, FORGET_PASSWORD, DELETE_ACCOUNT } from '../types/auth';
+import { baseUrl } from '../../utils/url';
 
 export function login(email, password) {
   return async dispatch => {
@@ -12,8 +12,7 @@ export function login(email, password) {
       return { response, status: 'success' };
     }
     function onError(error) {
-      dispatch({ type: LOG_IN_ERROR, error });
-      return { error, status: 'error' };
+      return console.log("error_login:", error);
     }
     try {
       const response = await axios.post(`${baseUrl}/auth/signin`, { email, password });
@@ -49,14 +48,7 @@ export function signup(user) {
     }
 
     function onError(error) {
-
-      dispatch({ type: LOG_IN_ERROR, error });
-      let status = "error";
-      if (error.response.data.message === "Invitation code is invalid") {
-        status = 'invalid_code'
-      }
-      return { error: error.response, status };
-
+      return console.log("error_signup:", error);
     }
 
     try {
@@ -65,17 +57,22 @@ export function signup(user) {
       let originalFileExt = originalFileName.split('.')
       originalFileExt = originalFileExt[originalFileExt.length - 1]
       const formData = new FormData();
-      formData.append('firstName', user.firstName)
-      formData.append('lastName', user.name)
       formData.append('email', user.email)
-      formData.append('invitationCode', user.invitationCode)
       formData.append('password', user.password)
+      formData.append('firstname', user.firstname)
+      formData.append('lastname', user.lastname)
+      formData.append('age', user.age)
+      formData.append('city', user.city)
+      formData.append('zipcode', user.zipcode)
+      formData.append('address', user.address)
+      formData.append('address', user.address)
       formData.append('avatar', {
         uri: user.avatar.uri,
         name: originalFileName,
         type: `image/${originalFileExt}`
       }, user.avatar.name)
 
+      console.log( "check form from action", formData)
       const response = await axios.post(`${baseUrl}/auth/signup`, formData, {
         headers: {
           "Content-Type": 'multipart/form-data',
@@ -105,8 +102,7 @@ export function changePassword(oldPassword, password) {
       return { response, status: 'success' };
     }
     function onError(error) {
-      dispatch({ type: CHANGE_PASSWORD_ERROR, payload: error })
-      return { error, status: 'error' };
+      return console.log("error_changePassword:", error);
     }
 
     try {
@@ -129,8 +125,7 @@ export function deleteAccount() {
       return { response, status: 'success' };
     }
     function onError(error) {
-      dispatch({ type: DELETE_ACCOUNT_ERROR, payload: error })
-      return { error, status: 'error' };
+      return console.log("error_deleteAccount:", error);
     }
 
     try {
@@ -155,8 +150,7 @@ export function reset(email) { // used for reset password
       return { response, status: 'success' };
     }
     function onError(error) {
-      dispatch({ type: FORGET_PASSWORD_ERROR, payload: error })
-      return { error, status: 'error' };
+      return console.log("error_reset:", error);
     }
 
     try {
