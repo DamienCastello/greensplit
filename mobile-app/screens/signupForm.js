@@ -64,7 +64,13 @@ function SignupForm(props) {
       <Formik
         initialValues={{ email: '', password: '', firstname: '',  lastname: '', age: '', city: '', zipcode: '', address: '' }}
         validationSchema={reviewSchema}
-        onSubmit={(values, actions) => {
+        onSubmit={(values, actions) => { console.log("plop", avatar)
+        /*
+          const splitedAvatarUrl = avatar.uri.split('/')
+          const originalFileName = splitedAvatarUrl[splitedAvatarUrl.length - 1]
+          let originalFileExt = originalFileName.split('.')
+          originalFileExt = originalFileExt[originalFileExt.length - 1]
+*/
           let user = {
             email: values.email,
             password: values.password,

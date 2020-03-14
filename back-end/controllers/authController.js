@@ -5,23 +5,37 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
     signIn: function (req, res, next) {
-        /* By default passport save authenticated user in req.user object */
+        User.findOne({ where: { email: req.body.email } })
+            .then((user) => {
+                if (user) {
+                    if (bcrypt.compareSync(req.body.password, user.password) === true) {
+                        /* Signin jwt with your SECRET key */
+                        const token = jwt.sign(user, process.env.JWT_SECRET);
+                        /* Return user and token in json response */
+                        res.json({ user, token });
+                    } else {
+                        res.status(404).json({ message: 'wrong password' });
+                    }
+                } else {
+                    res.status(404).json({ message: 'User not found' });
+                }
+            })
+            .catch((error) => { res.status(500).json({ error }); });
+/*
+        //By default passport save authenticated user in req.user object 
         const user = {
             email: req.body.email,
-            password: req.body.password
+            password: user.password
         };
-        /* Signin jwt with your SECRET key */
-        const token = jwt.sign(user, process.env.JWT_SECRET);
-        /* Return user and token in json response */
-        res.json({ user, token });
+*/
     },
     signUp: function (req, res, next) {
         console.log("check file", req.file ? `${getHost()}/${req.file.path}` : null)
         User.create({
             email: req.body.email,
             password: req.body.password,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
             avatar: req.file ? `${getHost()}/${req.file.path}` : null,
             isAdmin: req.body.isAdmin || false,
             age: req.body.age,
@@ -36,14 +50,15 @@ module.exports = {
                     id: newUser.id,
                     isAdmin: newUser.isAdmin,
                     email: newUser.email,
-                    firstName: newUser.firstName,
-                    lastName: newUser.lastName,
+                    firstname: newUser.firstname,
+                    lastname: newUser.lastname,
                     age: newUser.age,
                     city: newUser.city,
                     zipcode: newUser.zipcode,
-                    address: newUser.address
+                    address: newUser.address,
+                    avatar: newUser.avatar
                 };
-                
+
                 //not incorporate yet
                 //mailer(userDatas, newUser.email, 'welcome');
                 const token = jwt.sign(userDatas, process.env.JWT_SECRET);
@@ -53,6 +68,7 @@ module.exports = {
                 res.json({ user: userDatas, token });
             })
             .catch((error) => {
+                console.log(error.message);
                 res.status(500).json({ message: error.message, error });
             });
     },
@@ -60,7 +76,7 @@ module.exports = {
         User.findOne({ where: { email: req.body.email } })
             .then((user) => {
                 if (user) {
-                    user.destroy() 
+                    user.destroy()
                         .then((deletedUser) => { res.json({ user: deletedUser }); })
                         .catch((error) => { res.status(500).json({ error }); });
                 } else {

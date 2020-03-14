@@ -57,7 +57,9 @@ export function signup(user) {
       let originalFileExt = originalFileName.split('.')
       originalFileExt = originalFileExt[originalFileExt.length - 1]
       const formData = new FormData();
-      formData.append('email', user.email)
+      console.log("form in action", formData)
+      
+      formData.append('email', `${user.email}`)
       formData.append('password', user.password)
       formData.append('firstname', user.firstname)
       formData.append('lastname', user.lastname)
@@ -65,20 +67,24 @@ export function signup(user) {
       formData.append('city', user.city)
       formData.append('zipcode', user.zipcode)
       formData.append('address', user.address)
-      formData.append('address', user.address)
+      
       formData.append('avatar', {
         uri: user.avatar.uri,
         name: originalFileName,
         type: `image/${originalFileExt}`
       }, user.avatar.name)
 
+      
       console.log( "check form from action", formData)
-      const response = await axios.post(`${baseUrl}/auth/signup`, formData, {
+      
+      const response = await axios.post(`${baseUrl}/auth/signup`, formData /*formData, {
         headers: {
           "Content-Type": 'multipart/form-data',
           "Accept": 'application/json'
         }
-      });
+        
+      }*/);
+
 
       return onSuccess(response);
 

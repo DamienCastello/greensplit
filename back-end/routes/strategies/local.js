@@ -23,7 +23,10 @@ const localAuthStrategy = passport.use(new LocalStrategy({
           return done(null, false);
         }
       })
-      .catch(err => done(null, false));
+      .catch(err => {
+        console.log('error localAuth:', err);
+        done(null, false)
+      });
   }
 ));
 
