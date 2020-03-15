@@ -18,6 +18,19 @@ const reviewSchema = yup.object({
 });
 
 function LoginForm(props) {
+
+  loginUser = async (user) => {
+    const response = await props.login(user);
+    if (response.status === 'error') {
+      Toast.show({
+        text: 'Erreur de connexion',
+        buttonText: 'Ok'
+      })
+    } else if (response.status === 'success') {
+      props.navigation.navigate('Home')
+    }
+  }
+
   return (
 
     <ScrollView style={globalStyles.container}>
@@ -38,8 +51,7 @@ function LoginForm(props) {
           actions.resetForm();
           // have to submit from store here
           //addReview(values);
-          props.login(user);
-          console.log("check form after front validations:", user);
+          loginUser(user);
         }}
       >
         {props => (

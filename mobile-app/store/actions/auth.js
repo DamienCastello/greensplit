@@ -2,20 +2,21 @@ import axios from 'axios';
 import { LOGIN, LOGOUT, CHANGE_PASSWORD, FORGET_PASSWORD, DELETE_ACCOUNT } from '../types/auth';
 import { baseUrl } from '../../utils/url';
 
-export function login(email, password) {
+export function login(user) {
   return async dispatch => {
     function onSuccess(response) {
       // set token as default header
       axios.defaults.headers.common['Authorization'] = `bearer ${response.data.token}`;
-
       dispatch({ type: LOGIN, payload: response.data });
       return { response, status: 'success' };
     }
     function onError(error) {
-      return console.log("error_login:", error);
+      return console.log("error_login:", error.message);
     }
     try {
-      const response = await axios.post(`${baseUrl}/auth/signin`, { email, password });
+      console.log("testiiing", user)
+      const response = await axios.post(`${baseUrl}/auth/signin`, user);
+      console.log("test res", response.data)
       return onSuccess(response);
     }
     catch (err) {

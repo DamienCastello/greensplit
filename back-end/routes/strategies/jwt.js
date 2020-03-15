@@ -7,10 +7,9 @@ const User = models.User;
 var opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.JWT_SECRET;
-console.log("check options", opts)
 
 const jwtAuthStrategy = passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
-    User.findAll({ where: { id: jwt_payload.id } })
+    User.findAll({ where: { id: jwt_payload.data.id } })
         .then((users) => {
             if (users.length > 0) {
                 return done(null, users[0]);

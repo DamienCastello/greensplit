@@ -3,31 +3,49 @@ const User = require('../models').User;
 const { getHost } = require('../utils/ip');
 const bcrypt = require('bcrypt');
 
+
 module.exports = {
-    signIn: function (req, res, next) {
-        User.findOne({ where: { email: req.body.email } })
+    signIn: async function (req, res, next) {
+        await User.findOne({ where: { email: req.body.email } })
             .then((user) => {
-                if (user) {
-                    if (bcrypt.compareSync(req.body.password, user.password) === true) {
-                        /* Signin jwt with your SECRET key */
-                        const token = jwt.sign(user, process.env.JWT_SECRET);
-                        /* Return user and token in json response */
-                        res.json({ user, token });
-                    } else {
-                        res.status(404).json({ message: 'wrong password' });
-                    }
+                if (user === null) {
+                    console.log('Not found!');
                 } else {
-                    res.status(404).json({ message: 'User not found' });
+                    console.log("test", req.body.email, "another", req.body)
+                    console.log("should be true:", user instanceof User);
+                    console.log("my email:", user.email);
+                    console.log("enter in compare bloc")
+                    console.log("testing", req.body, user.password)
+                    /*
+                                      if (bcrypt.compareSync(req.body.email.password, user.password) === true) {
+                                          //Signin jwt with your SECRET key 
+                                          const token = jwt.sign(user, process.env.JWT_SECRET);
+                                          //Return user and token in json response 
+                                          res.json({ user, token });
+                                      } else {
+                                          res.status(404).json({ message: 'wrong password' });
+                                      }
+                                      */
+                    bcrypt.compare(req.body.password, user.password, function (error, response) {
+                        if (error) {
+                            // handle error
+                            console.log("error on compare:", error)
+                        }
+                        if (response) {
+                            //Signin jwt with your SECRET key 
+                            console.log("check object", user.dataValues.email)
+                            const token = jwt.sign(user.dataValues, process.env.JWT_SECRET);
+                            //Return user and token in json response 
+                            res.json({ user, token });
+                        } else {
+                            // response is OutgoingMessage object that server response http request
+                            return res.json({ success: false, message: 'passwords do not match' });
+                        }
+                    });
                 }
             })
-            .catch((error) => { res.status(500).json({ error }); });
-/*
-        //By default passport save authenticated user in req.user object 
-        const user = {
-            email: req.body.email,
-            password: user.password
-        };
-*/
+            .catch((err) => { console.log("error on findUser", err) })
+
     },
     signUp: function (req, res, next) {
         console.log("check file", req.file ? `${getHost()}/${req.file.path}` : null)

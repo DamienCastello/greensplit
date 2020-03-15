@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, FlatList, Modal,
-  TouchableWithoutFeedback, Keyboard } from 'react-native';
+  TouchableWithoutFeedback, Keyboard, Button } from 'react-native';
 import { globalStyles } from '../styles/global';
 import { MaterialIcons } from '@expo/vector-icons';
 import Card from '../shared/card';
 import ReviewForm from './reviewForm';
 import store from '../store/index';
+
 
 export default function Home({ navigation }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -15,7 +16,7 @@ export default function Home({ navigation }) {
     { title: 'Not So "Final" Fantasy', rating: 3, body: 'lorem ipsum', key: '3' },
   ]);
 
-  console.log('STORE IN HOME', store);
+  console.log('STORE IN HOME', store.getState());
 
   const addReview = (review) => {
     review.key = Math.random().toString();
@@ -56,7 +57,12 @@ export default function Home({ navigation }) {
           </Card>
         </TouchableOpacity>
       )} />
-
+      <Button
+          title="check store"
+          onPress={() => {
+            console.log("my store:", store.getState())
+          }}
+        />
     </View>
   );
 }
