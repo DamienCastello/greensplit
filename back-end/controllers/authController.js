@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models').User;
+const Company = require('../models').Company;
+const Runer = require('../models').Runer;
 const { getHost } = require('../utils/ip');
 const bcrypt = require('bcrypt');
 
@@ -11,21 +13,6 @@ module.exports = {
                 if (user === null) {
                     console.log('Not found!');
                 } else {
-                    console.log("test", req.body.email, "another", req.body)
-                    console.log("should be true:", user instanceof User);
-                    console.log("my email:", user.email);
-                    console.log("enter in compare bloc")
-                    console.log("testing", req.body, user.password)
-                    /*
-                                      if (bcrypt.compareSync(req.body.email.password, user.password) === true) {
-                                          //Signin jwt with your SECRET key 
-                                          const token = jwt.sign(user, process.env.JWT_SECRET);
-                                          //Return user and token in json response 
-                                          res.json({ user, token });
-                                      } else {
-                                          res.status(404).json({ message: 'wrong password' });
-                                      }
-                                      */
                     bcrypt.compare(req.body.password, user.password, function (error, response) {
                         if (error) {
                             // handle error
@@ -47,7 +34,7 @@ module.exports = {
             .catch((err) => { console.log("error on findUser", err) })
 
     },
-    signUp: function (req, res, next) {
+    signUpUser: function (req, res, next) {
         console.log("check file", req.file ? `${getHost()}/${req.file.path}` : null)
         User.create({
             email: req.body.email,
@@ -80,8 +67,6 @@ module.exports = {
                 //not incorporate yet
                 //mailer(userDatas, newUser.email, 'welcome');
                 const token = jwt.sign(userDatas, process.env.JWT_SECRET);
-                console.log("check token:", token)
-                console.log("check data", userDatas)
                 /* Return user and token in json response */
                 res.json({ user: userDatas, token });
             })
@@ -90,6 +75,90 @@ module.exports = {
                 res.status(500).json({ message: error.message, error });
             });
     },
+
+    signUpCompany: function (req, res, next) {
+        console.log("check file", req.file ? `${getHost()}/${req.file.path}` : null)
+        Company.create({
+            email: req.body.email,
+            password: req.body.password,
+            name: req.body.name,
+            avatar: req.file ? `${getHost()}/${req.file.path}` : null,
+            city: req.body.city,
+            zipcode: req.body.zipcode,
+            address: req.body.address
+
+
+        })
+            .then((newCompany) => {
+                const companyDatas = {
+                    id: newCompany.id,
+                    email: newCompany.email,
+                    name: newCompany.name,
+                    city: newCompany.city,
+                    zipcode: newCompany.zipcode,
+                    address: newCompany.address,
+                    avatar: newCompany.avatar
+                };
+
+                //not incorporate yet
+                //mailer(companyDatas, newCompany.email, 'welcome');
+                const token = jwt.sign(companyDatas, process.env.JWT_SECRET);
+                /* Return company and token in json response */
+                res.json({ company: companyDatas, token });
+            })
+            .catch((error) => {
+                console.log(error.message);
+                res.status(500).json({ message: error.message, error });
+            });
+    },
+
+    signUpRuner: async function (req, res, next) {
+        await Company.findOne({ where: { name: req.body.companyName } })
+            .then((company) => {
+                console.log("check file", req.file ? `${getHost()}/${req.file.path}` : null)
+                console.log("check company for runer:", company)
+                Runer.create({
+                    email: req.body.email,
+                    password: req.body.password,
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    avatar: req.file ? `${getHost()}/${req.file.path}` : null,
+                    city: req.body.city,
+                    zipcode: req.body.zipcode,
+                    address: req.body.address,
+                    companyId: company.id
+
+
+                })
+                    .then((newRuner) => {
+                        const runerDatas = {
+                            id: newRuner.id,
+                            email: newRuner.email,
+                            firstname: newRuner.firstname,
+                            lastname: newRuner.lastname,
+                            city: newRuner.city,
+                            zipcode: newRuner.zipcode,
+                            address: newRuner.address,
+                            avatar: newRuner.avatar,
+                            companyId: newRuner.companyId
+                        };
+
+                        //not incorporate yet
+                        //mailer(runerDatas, newRuner.email, 'welcome');
+                        const token = jwt.sign(runerDatas, process.env.JWT_SECRET);
+                        /* Return runer and token in json response */
+                        res.json({ runer: runerDatas, token });
+                    })
+                    .catch((error) => {
+                        console.log(error.message);
+                        res.status(500).json({ message: error.message, error });
+                    });
+            })
+            .catch((err) => { console.log("error on findCompany", err) })
+    },
+
+    //not incorporate yet
+    /*
     deleteAccount: function (req, res, next) {
         User.findOne({ where: { email: req.body.email } })
             .then((user) => {
@@ -166,4 +235,5 @@ module.exports = {
                 res.status(500).json({ error });
             });
     }
+    */
 };

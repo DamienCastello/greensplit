@@ -20,12 +20,20 @@ router.post('/signin', authController.signIn);
 
 /* POST create new user. multer create an object, we can access it with req.avatar */
 // TODO fix validationCode before avatar upload
-router.post('/signup', upload.single('avatar'), authController.signUp);
+router.post('/signup/user', upload.single('avatar'), authController.signUpUser);
+
+router.post('/signup/company', upload.single('avatar'), authController.signUpCompany);
+
+router.post('/signup/runer', upload.single('avatar'), authController.signUpRuner);
+
+//not incorporate yet
+/*
 
 router.put('/change-password', passport.authenticate('jwt', { session: false }), authController.changePassword);
 
 router.delete('/delete-account', passport.authenticate('jwt', { session: false }), authController.deleteAccount);
 
 router.post('/reset', authController.forgetPassword);
+*/
 
 module.exports = router;

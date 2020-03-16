@@ -1,11 +1,11 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import React from 'react';
 import Header from '../shared/header';
-import Signup from '../screens/signupForm';
+import Select from '../screens/select';
 
 const screens = {
-  Signup: {
-    screen: Signup,
+  Select: {
+    screen: Select,
     navigationOptions: ({ navigation }) => {
       return {
         headerTitle: () => <Header title='GameZone' navigation={navigation} />
@@ -14,11 +14,11 @@ const screens = {
   },
 }
 
-const SignupStack = createStackNavigator(screens, {
+const SelectStack = createStackNavigator(screens, {
   defaultNavigationOptions: {
     headerTintColor: '#444',
     headerStyle: { backgroundColor: '#eee', height: 60 },
   }
 });
 
-export default SignupStack;
+export default SelectStack;

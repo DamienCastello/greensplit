@@ -15,11 +15,6 @@ const passport = require('passport');
 const { localAuthStrategy } = require('./routes/strategies/local');
 const { jwtAuthStrategy } = require('./routes/strategies/jwt');
 
-/*
-var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json())
-*/
 
 var app = express();
 
@@ -29,7 +24,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use(passport.initialize());
 // Initialize auth strategies config
 localAuthStrategy;
 jwtAuthStrategy;

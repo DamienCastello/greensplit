@@ -1,4 +1,6 @@
 'use strict';
+const bcrypt = require('bcrypt');
+
 module.exports = (sequelize, DataTypes) => {
   const Runer = sequelize.define('Runer', {
     email: {
@@ -25,7 +27,20 @@ module.exports = (sequelize, DataTypes) => {
     zipcode: DataTypes.STRING,
     address: DataTypes.STRING,
     companyId: DataTypes.INTEGER
-  }, {});
+  }, {
+    hooks: {
+      beforeCreate: (user, options) => {
+        return bcrypt.hash(user.password, 10)
+          .then((hash) => user.password = hash)
+          .catch((error) => console.log('Error on user creation', error));
+      },
+      beforeUpdate: (user, options) => {
+        return bcrypt.hash(user.password, 10)
+          .then((hash) => user.password = hash)
+          .catch((error) => console.log('Error on user creation', error));
+      }
+    }
+  });
   Runer.associate = function (models) {
     Runer.belongsTo(models.Company, {foreignKey: 'companyId', as: 'companies', onDelete: 'SET NULL',
     onUpdate: 'RESTRICT', hooks: true})

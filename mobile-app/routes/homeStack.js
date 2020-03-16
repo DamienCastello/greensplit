@@ -3,6 +3,7 @@ import React from 'react';
 import Header from '../shared/header';
 import Home from '../screens/home';
 import ReviewDetails from '../screens/reviewDetails';
+import Signup from '../screens/signupForm';
 
 const screens = {
   Home: {
@@ -19,6 +20,14 @@ const screens = {
       title: 'Review Details',
     }
   },
+  Signup: {
+    screen: Signup,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: () => <Header title='GameZone' navigation={navigation} />
+      }
+    },
+  }
 };
 
 // home stack navigator screens
