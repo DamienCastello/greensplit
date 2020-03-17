@@ -4,7 +4,9 @@ import { createAppContainer } from 'react-navigation';
 // stacks
 import HomeStack from './homeStack';
 import AboutStack from './aboutStack';
-import SelectStack from './selectStack';
+import SelectToSignStack from './selectToSignStack';
+import SelectToLogStack from './selectToLogStack';
+
 
 // drawer navigation options
 const RootDrawerNavigator = createDrawerNavigator({
@@ -15,11 +17,11 @@ const RootDrawerNavigator = createDrawerNavigator({
     screen: AboutStack,
   },
   'Sign Up': {
-    screen: SelectStack,
-  },/*
+    screen: SelectToSignStack,
+  },
   'Log In': {
-    screen: SelectStack,
-  },*/
+    screen: SelectToLogStack,
+  }
 });
 
 export default createAppContainer(RootDrawerNavigator);

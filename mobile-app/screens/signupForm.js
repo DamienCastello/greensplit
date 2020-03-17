@@ -7,11 +7,11 @@ import RunerForm from '../components/runerSignUpForm';
 function SignupForm({navigation}) {
 
   if (navigation.getParam('role') === 'Consumer') {
-    return <UserForm />
+    return <UserForm navigation={navigation} />
   } else if (navigation.getParam('role') === 'Company') {
-    return <CompanyForm />
+    return <CompanyForm navigation={navigation} />
   } else if (navigation.getParam('role') === 'Deliverer') {
-    return <RunerForm />
+    return <RunerForm navigation={navigation} />
   }
 
 }

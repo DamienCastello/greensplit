@@ -1,4 +1,6 @@
-export const LOGIN = 'LOGIN_USER';
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGIN_COMPANY = 'LOGIN_COMPANY';
+export const LOGIN_RUNER = 'LOGIN_RUNER';
 export const LOGOUT = 'LOGOUT_USER';
 export const FORGET_PASSWORD = 'FORGET_PASSWORD';
 export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';

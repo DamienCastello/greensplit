@@ -85,4 +85,4 @@ const mapDispatchToProps = {
   loginUser
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)
+export default connect(mapStateToProps, mapDispatchToProps)(UserForm)

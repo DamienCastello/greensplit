@@ -23,6 +23,8 @@ module.exports = {
                             console.log("check object", user.dataValues.email)
                             const token = jwt.sign(user.dataValues, process.env.JWT_SECRET);
                             //Return user and token in json response 
+                            console.log('USER:', user);
+                            console.log('TOKEN:', token);
                             res.json({ user, token });
                         } else {
                             // response is OutgoingMessage object that server response http request
@@ -50,6 +52,8 @@ module.exports = {
                             console.log("check object", company.dataValues.email)
                             const token = jwt.sign(company.dataValues, process.env.JWT_SECRET);
                             //Return company and token in json response 
+                            console.log('COMPANY:', company);
+                            console.log('TOKEN:', token);
                             res.json({ company, token });
                         } else {
                             // response is OutgoingMessage object that server response http request
@@ -77,6 +81,8 @@ module.exports = {
                             console.log("check object", runer.dataValues.email)
                             const token = jwt.sign(runer.dataValues, process.env.JWT_SECRET);
                             //Return runer and token in json response 
+                            console.log('RUNER:', runer);
+                            console.log('TOKEN:', token);
                             res.json({ runer, token });
                         } else {
                             // response is OutgoingMessage object that server response http request

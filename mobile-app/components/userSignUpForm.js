@@ -80,6 +80,7 @@ function UserForm(props) {
           // have to submit from store here
           props.signupUser(user);
           console.log("check form after front validations:", user);
+          props.navigation.navigate('Home')
         }}
       >
         {props => (

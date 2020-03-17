@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LOGIN, LOGOUT, CHANGE_PASSWORD, FORGET_PASSWORD, DELETE_ACCOUNT } from '../types/auth';
+import { LOGIN_USER, LOGIN_COMPANY, LOGIN_RUNER, LOGOUT, CHANGE_PASSWORD, FORGET_PASSWORD, DELETE_ACCOUNT } from '../types/auth';
 import { baseUrl } from '../../utils/url';
 
 export function loginUser(user) {
@@ -7,7 +7,7 @@ export function loginUser(user) {
     function onSuccess(response) {
       // set token as default header
       axios.defaults.headers.common['Authorization'] = `bearer ${response.data.token}`;
-      dispatch({ type: LOGIN, payload: response.data });
+      dispatch({ type: LOGIN_USER, payload: response.data });
       return { response, status: 'success' };
     }
     function onError(error) {
@@ -28,7 +28,7 @@ export function loginCompany(company) {
     function onSuccess(response) {
       // set token as default header
       axios.defaults.headers.common['Authorization'] = `bearer ${response.data.token}`;
-      dispatch({ type: LOGIN, payload: response.data });
+      dispatch({ type: LOGIN_COMPANY, payload: response.data });
       return { response, status: 'success' };
     }
     function onError(error) {
@@ -49,7 +49,7 @@ export function loginRuner(runer) {
     function onSuccess(response) {
       // set token as default header
       axios.defaults.headers.common['Authorization'] = `bearer ${response.data.token}`;
-      dispatch({ type: LOGIN, payload: response.data });
+      dispatch({ type: LOGIN_RUNER, payload: response.data });
       return { response, status: 'success' };
     }
     function onError(error) {

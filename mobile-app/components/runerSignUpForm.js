@@ -77,6 +77,7 @@ function RunerForm(props) {
                     // have to submit from store here
                     props.signupRuner(runer);
                     console.log("check form after front validations:", runer);
+                    props.navigation.navigate('Home')
                 }}
             >
                 {props => (

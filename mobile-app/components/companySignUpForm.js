@@ -69,6 +69,7 @@ function CompanyForm(props) {
           // have to submit from store here
           props.signupCompany(company);
           console.log("check form after front validations:", company);
+          props.navigation.navigate('Home')
         }}
       >
         {props => (

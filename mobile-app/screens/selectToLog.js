@@ -12,14 +12,14 @@ const cards = [
   { title: 'Deliverer', name: 'arrows-out', type: 'foundation', key: '3' },
 ];
 
-function Select({navigation}) {
+function SelectToLog({navigation}) {
   
 return(
       cards.map((card) => {
         return (
           <View style={globalStyles.container} key={card.key}>
               <Text>{card.title}</Text>
-              <TouchableOpacity onPress={() => {navigation.navigate('Signup', {role: card.title})}}>
+              <TouchableOpacity onPress={() => {navigation.navigate('Login', {role: card.title})}}>
             <Card>
             <Text>{card.title}</Text>
               <Icon
@@ -37,4 +37,4 @@ return(
 
 
 
-export default Select;
+export default SelectToLog;
