@@ -1,7 +1,7 @@
 import React from 'react';
-import UserForm from '../components/userForm';
-import CompanyForm from '../components/companyForm';
-import RunerForm from '../components/runerForm';
+import UserForm from '../components/userSignUpForm';
+import CompanyForm from '../components/companySignUpForm';
+import RunerForm from '../components/runerSignUpForm';
 
 
 function SignupForm({navigation}) {

@@ -4,6 +4,7 @@ import Header from '../shared/header';
 import Home from '../screens/home';
 import ReviewDetails from '../screens/reviewDetails';
 import Signup from '../screens/signupForm';
+import Login from '../screens/loginForm';
 
 const screens = {
   Home: {
@@ -22,6 +23,14 @@ const screens = {
   },
   Signup: {
     screen: Signup,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: () => <Header title='GameZone' navigation={navigation} />
+      }
+    },
+  },
+  Login: {
+    screen: Login,
     navigationOptions: ({ navigation }) => {
       return {
         headerTitle: () => <Header title='GameZone' navigation={navigation} />

@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 
 
 module.exports = {
-    signIn: async function (req, res, next) {
+    signInUser: async function (req, res, next) {
         await User.findOne({ where: { email: req.body.email } })
             .then((user) => {
                 if (user === null) {
@@ -32,6 +32,60 @@ module.exports = {
                 }
             })
             .catch((err) => { console.log("error on findUser", err) })
+
+    },
+    signInCompany: async function (req, res, next) {
+        await Company.findOne({ where: { email: req.body.email } })
+            .then((company) => {
+                if (company === null) {
+                    console.log('Not found!');
+                } else {
+                    bcrypt.compare(req.body.password, company.password, function (error, response) {
+                        if (error) {
+                            // handle error
+                            console.log("error on compare:", error)
+                        }
+                        if (response) {
+                            //Signin jwt with your SECRET key 
+                            console.log("check object", company.dataValues.email)
+                            const token = jwt.sign(company.dataValues, process.env.JWT_SECRET);
+                            //Return company and token in json response 
+                            res.json({ company, token });
+                        } else {
+                            // response is OutgoingMessage object that server response http request
+                            return res.json({ success: false, message: 'passwords do not match' });
+                        }
+                    });
+                }
+            })
+            .catch((err) => { console.log("error on findCompany", err) })
+
+    },
+    signInRuner: async function (req, res, next) {
+        await Runer.findOne({ where: { email: req.body.email } })
+            .then((runer) => {
+                if (runer === null) {
+                    console.log('Not found!');
+                } else {
+                    bcrypt.compare(req.body.password, runer.password, function (error, response) {
+                        if (error) {
+                            // handle error
+                            console.log("error on compare:", error)
+                        }
+                        if (response) {
+                            //Signin jwt with your SECRET key 
+                            console.log("check object", runer.dataValues.email)
+                            const token = jwt.sign(runer.dataValues, process.env.JWT_SECRET);
+                            //Return runer and token in json response 
+                            res.json({ runer, token });
+                        } else {
+                            // response is OutgoingMessage object that server response http request
+                            return res.json({ success: false, message: 'passwords do not match' });
+                        }
+                    });
+                }
+            })
+            .catch((err) => { console.log("error on findRuner", err) })
 
     },
     signUpUser: function (req, res, next) {
