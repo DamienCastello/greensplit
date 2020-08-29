@@ -6,6 +6,9 @@ const { getHost } = require('../utils/ip');
 const bcrypt = require('bcrypt');
 
 
+//////////////////////////////
+// WORK IN PROGRESS ON LOGIN
+//////////////////////////////
 module.exports = {
     signInUser: async function (req, res, next) {
         await User.findOne({ where: { email: req.body.email } })
@@ -13,22 +16,28 @@ module.exports = {
                 if (user === null) {
                     console.log('Not found!');
                 } else {
+                    console.log("check user : ", req.user, "check body : ", req.body);
                     bcrypt.compare(req.body.password, user.password, function (error, response) {
                         if (error) {
                             // handle error
                             console.log("error on compare:", error)
                         }
+                        if (response !== true) {
+                           console.log('Bad Password!');
+                           return res.json({ success: false, message: 'password doesn\'t match' });
+                        }
                         if (response) {
+                            console.log("response : ", response);
                             //Signin jwt with your SECRET key 
-                            console.log("check object", user.dataValues.email)
+                            //console.log("check object", user.dataValues.email)
                             const token = jwt.sign(user.dataValues, process.env.JWT_SECRET);
                             //Return user and token in json response 
-                            console.log('USER:', user);
-                            console.log('TOKEN:', token);
+                            //console.log('USER:', user);
+                            //console.log('TOKEN:', token);
                             res.json({ user, token });
                         } else {
                             // response is OutgoingMessage object that server response http request
-                            return res.json({ success: false, message: 'passwords do not match' });
+                            return res.json({ success: false, message: 'password doesn\'t match' });
                         }
                     });
                 }
@@ -57,7 +66,7 @@ module.exports = {
                             res.json({ company, token });
                         } else {
                             // response is OutgoingMessage object that server response http request
-                            return res.json({ success: false, message: 'passwords do not match' });
+                            return res.json({ success: false, message: 'password doesn\'t match' });
                         }
                     });
                 }
@@ -86,7 +95,7 @@ module.exports = {
                             res.json({ runer, token });
                         } else {
                             // response is OutgoingMessage object that server response http request
-                            return res.json({ success: false, message: 'passwords do not match' });
+                            return res.json({ success: false, message: 'password doesn\'t match' });
                         }
                     });
                 }
