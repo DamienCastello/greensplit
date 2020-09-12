@@ -1,24 +1,24 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import React from 'react';
 import Header from '../shared/header';
-import About from '../screens/about';
+import SelectToSign from '../screens/public/selectToSign';
 
 const screens = {
-  About: {
-    screen: About,
+  SelectToSign: {
+    screen: SelectToSign,
     navigationOptions: ({ navigation }) => {
       return {
-        headerTitle: () => <Header title='GameZone' navigation={navigation} />
+        headerTitle: () => <Header title='Greensplit' navigation={navigation} />
       }
     },
   },
 }
 
-const AboutStack = createStackNavigator(screens, {
+const SelectToSignStack = createStackNavigator(screens, {
   defaultNavigationOptions: {
     headerTintColor: '#444',
     headerStyle: { backgroundColor: '#eee', height: 60 },
   }
 });
 
-export default AboutStack;
+export default SelectToSignStack;
