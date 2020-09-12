@@ -1,4 +1,4 @@
-# GreenSplit Project v1.0.0
+# GreenSplit Project v1.1.0
 YARN is used to manage dependencies
 # Backend Node.js
 *requirements :*
