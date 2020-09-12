@@ -8,6 +8,7 @@ export function loginUser(user) {
       // set token as default header
       axios.defaults.headers.common['Authorization'] = `bearer ${response.data.token}`;
       dispatch({ type: LOGIN_USER, payload: response.data });
+      console.log("check user login responnse : ", response);
       return { response, status: 'success' };
     }
     function onError(error) {

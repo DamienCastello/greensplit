@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
-import { globalStyles, images } from '../styles/global';
-import Card from '../shared/card';
+import { globalStyles, images } from '../../styles/global';
+import Card from '../../shared/card';
 
 export default function ReviewDetails({ navigation }) {
   const rating = navigation.getParam('rating');
@@ -14,7 +14,7 @@ export default function ReviewDetails({ navigation }) {
         </Text>
         <Text>{ navigation.getParam('body') }</Text>
         <View style={styles.rating}>
-          <Text>GameZone rating: </Text>
+          <Text>Greensplit rating: </Text>
           <Image source={images.ratings[rating]} />
         </View>
       </Card>

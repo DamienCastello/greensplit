@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, Button, TextInput, View, Text } from 'react-native';
-import { globalStyles } from '../styles/global.js';
+import { TextInput, View, Text } from 'react-native';
+import { globalStyles } from '../../styles/global.js';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import FlatButton from '../shared/button.js';
+import FlatButton from '../../shared/button.js';
 
 const reviewSchema = yup.object({
   title: yup.string()

@@ -30,7 +30,7 @@ export default function (state = defaultStates, action) {
       case LOGIN_RUNER:
       return { ...state, runer: { ...action.payload.runer, token: action.payload.token, isConnected: true } };
     case LOGOUT:
-      return { ...state, user: defaultStates.user }; 
+      return { ...state, user: defaultStates.user, company: defaultStates.company, runer: defaultStates.runer }; 
     case FORGET_PASSWORD:
       return state;
     case FORGET_PASSWORD_ERROR:

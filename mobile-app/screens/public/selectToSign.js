@@ -2,8 +2,8 @@
 import React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
-import Card from '../shared/card';
-import { globalStyles } from '../styles/global';
+import Card from '../../shared/card';
+import { globalStyles } from '../../styles/global';
 
 
 const cards = [
@@ -12,14 +12,14 @@ const cards = [
   { title: 'Deliverer', name: 'arrows-out', type: 'foundation', key: '3' },
 ];
 
-function SelectToLog({navigation}) {
+function SelectToSign({navigation}) {
   
 return(
       cards.map((card) => {
         return (
           <View style={globalStyles.container} key={card.key}>
               <Text>{card.title}</Text>
-              <TouchableOpacity onPress={() => {navigation.navigate('Login', {role: card.title})}}>
+              <TouchableOpacity onPress={() => {navigation.navigate('Signup', {role: card.title})}}>
             <Card>
             <Text>{card.title}</Text>
               <Icon
@@ -37,4 +37,4 @@ return(
 
 
 
-export default SelectToLog;
+export default SelectToSign;
