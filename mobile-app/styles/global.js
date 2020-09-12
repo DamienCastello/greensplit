@@ -28,6 +28,9 @@ export const globalStyles = StyleSheet.create({
     marginTop: 6,
     textAlign: 'center',
   },
+  authStackMargin: {
+    marginTop: 60,
+},
 });
 
 export const images = {

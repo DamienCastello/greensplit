@@ -16,7 +16,7 @@ module.exports = {
                 if (user === null) {
                     console.log('Not found!');
                 } else {
-                    console.log("check user : ", req.user, "check body : ", req.body);
+                    console.log("check user : ", user, "check body : ", req.body);
                     bcrypt.compare(req.body.password, user.password, function (error, response) {
                         if (error) {
                             // handle error

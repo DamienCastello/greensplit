@@ -1,24 +1,24 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import React from 'react';
 import Header from '../shared/header';
-import SelectToLog from '../screens/selectToLog';
+import Logout from '../screens/connected/logout';
 
 const screens = {
-  SelectToLog: {
-    screen: SelectToLog,
+  Logout: {
+    screen: Logout,
     navigationOptions: ({ navigation }) => {
       return {
-        headerTitle: () => <Header title='GameZone' navigation={navigation} />
+        headerTitle: () => <Header title='Greensplit' navigation={navigation} />
       }
     },
   },
 }
 
-const SelectToLogStack = createStackNavigator(screens, {
+const LogoutStack = createStackNavigator(screens, {
   defaultNavigationOptions: {
     headerTintColor: '#444',
     headerStyle: { backgroundColor: '#eee', height: 60 },
   }
 });
 
-export default SelectToLogStack;
+export default LogoutStack;

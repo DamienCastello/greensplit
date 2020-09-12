@@ -13,10 +13,12 @@ export default function FlatButton({ text, onPress }) {
 
 const styles = StyleSheet.create({
   button: {
+    borderWidth: 1,
+    borderColor: 'black',
     borderRadius: 8,
     paddingVertical: 14,
     paddingHorizontal: 10,
-    backgroundColor: '#f01d71',
+    backgroundColor: '#2c9c35',
   },
   buttonText: {
     color: 'white',

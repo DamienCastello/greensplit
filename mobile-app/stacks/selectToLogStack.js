@@ -1,24 +1,24 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import React from 'react';
 import Header from '../shared/header';
-import SelectToSign from '../screens/selectToSign';
+import SelectToLog from '../screens/public/selectToLog';
 
 const screens = {
-  SelectToSign: {
-    screen: SelectToSign,
+  SelectToLog: {
+    screen: SelectToLog,
     navigationOptions: ({ navigation }) => {
       return {
-        headerTitle: () => <Header title='GameZone' navigation={navigation} />
+        headerTitle: () => <Header title='Greensplit' navigation={navigation} />
       }
     },
   },
 }
 
-const SelectToSignStack = createStackNavigator(screens, {
+const SelectToLogStack = createStackNavigator(screens, {
   defaultNavigationOptions: {
     headerTintColor: '#444',
     headerStyle: { backgroundColor: '#eee', height: 60 },
   }
 });
 
-export default SelectToSignStack;
+export default SelectToLogStack;

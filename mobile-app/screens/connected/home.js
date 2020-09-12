@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, FlatList, Modal,
   TouchableWithoutFeedback, Keyboard, Button } from 'react-native';
-import { globalStyles } from '../styles/global';
+import { globalStyles } from '../../styles/global';
 import { MaterialIcons } from '@expo/vector-icons';
-import Card from '../shared/card';
+import Card from '../../shared/card';
 import ReviewForm from './reviewForm';
-import store from '../store/index';
+import store from '../../store/index';
 
 
 export default function Home({ navigation }) {
