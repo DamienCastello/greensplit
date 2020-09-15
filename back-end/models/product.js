@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         len: [3,20]
       }
     },
-    price: DataTypes.DECIMAL,
+    price: DataTypes.INTEGER,
     preview: DataTypes.STRING,
     stock: DataTypes.INTEGER,
     companyId: DataTypes.INTEGER

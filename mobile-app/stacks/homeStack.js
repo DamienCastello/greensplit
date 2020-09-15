@@ -3,6 +3,7 @@ import React from 'react';
 import Header from '../shared/header';
 import Home from '../screens/connected/home';
 import ReviewDetails from '../screens/connected/reviewDetails';
+import AddProductForm from '../components/addProductForm';
 
 const screens = {
   Home: {
@@ -18,6 +19,14 @@ const screens = {
     navigationOptions: {
       title: 'Review Details',
     }
+  },
+  AddProductForm: {
+    screen: AddProductForm,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: () => <Header title='Greensplit' navigation={navigation} />
+      }
+    },
   },
 
 };

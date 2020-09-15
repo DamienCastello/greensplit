@@ -1,0 +1,4 @@
+export const CREATE_PRODUCT = 'CREATE_PRODUCT';
+
+// Errors
+export const ERROR_ON_CREATE_PRODUCT = 'ERROR_ON_CREATE_PRODUCT';
