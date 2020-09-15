@@ -6,6 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Card from '../../shared/card';
 import ReviewForm from './reviewForm';
 import store from '../../store/index';
+import AddProductForm from '../../components/addProductForm';
 
 
 export default function Home({ navigation }) {
@@ -17,6 +18,7 @@ export default function Home({ navigation }) {
   ]);
 
   console.log('STORE IN HOME', store.getState());
+  console.log('check company token from home : ', store.getState().company.token);
 
   const addReview = (review) => {
     review.key = Math.random().toString();
@@ -28,20 +30,37 @@ export default function Home({ navigation }) {
 
   return (
     <View style={globalStyles.container}>
-  
-      <Modal visible={modalOpen} animationType='slide'>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.modalContent}>
-            <MaterialIcons 
-              name='close'
-              size={24} 
-              style={{...styles.modalToggle, ...styles.modalClose}} 
-              onPress={() => setModalOpen(false)} 
-            />
-            <ReviewForm addReview={addReview} />
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
+  { 
+  store.getState().company.token ? 
+       <Modal visible={modalOpen} animationType='slide'>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.modalContent}>
+              <MaterialIcons 
+                name='close'
+                size={24} 
+                style={{...styles.modalToggle, ...styles.modalClose}} 
+                onPress={() => setModalOpen(false)} 
+              />
+              <AddProductForm/>
+            </View>
+          </TouchableWithoutFeedback>
+       </Modal>
+  : 
+       <Modal visible={modalOpen} animationType='slide'>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.modalContent}>
+              <MaterialIcons 
+                name='close'
+                size={24} 
+                style={{...styles.modalToggle, ...styles.modalClose}} 
+                onPress={() => setModalOpen(false)} 
+              />
+              <ReviewForm addReview={addReview} />
+            </View>
+          </TouchableWithoutFeedback>
+       </Modal>
+  }
+      
 
       <MaterialIcons 
         name='add' 

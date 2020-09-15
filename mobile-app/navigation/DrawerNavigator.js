@@ -4,8 +4,6 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import HomeStack from '../stacks/homeStack';
 import AboutStack from '../stacks/aboutStack';
 import LogoutStack from '../stacks/logoutStack';
-import { logout } from '../store/actions/auth';
-
 
 
 // drawer navigation options

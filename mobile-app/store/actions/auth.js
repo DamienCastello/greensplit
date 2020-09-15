@@ -179,13 +179,13 @@ export function signupCompany(company) {
       
       console.log( "check form from action", formData)
       
-      const response = await axios.post(`${baseUrl}/auth/signup/company`, formData /*formData, {
-        headers: {
-          "Content-Type": 'multipart/form-data',
-          "Accept": 'application/json'
+      const response = await axios.post(`${baseUrl}/auth/signup/company`, formData);
+   /*,{ headers: 
+        {
+        "Content-Type": 'multipart/form-data',
+        "Accept": 'application/json'
         }
-        
-      }*/);
+      }*/
 
 
       return onSuccess(response);
@@ -248,13 +248,7 @@ export function signupRuner(runer) {
       
       console.log( "check form from action", formData)
       
-      const response = await axios.post(`${baseUrl}/auth/signup/runer`, formData /*formData, {
-        headers: {
-          "Content-Type": 'multipart/form-data',
-          "Accept": 'application/json'
-        }
-        
-      }*/);
+      const response = await axios.post(`${baseUrl}/auth/signup/runer`, formData);
 
 
       return onSuccess(response);
@@ -321,7 +315,7 @@ export function deleteAccount() {
 }
 
 export function reset(email) { // used for reset password
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     function onSuccess(response) {
       dispatch({ type: FORGET_PASSWORD })
       return { response, status: 'success' };

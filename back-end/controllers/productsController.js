@@ -13,6 +13,7 @@ module.exports = {
             .catch((error) => res.status(500).json({ error }));
     },
     create: function (req, res, next) {
+        console.log("check request addProduct : ", req.body);
         Product.create({
             name: req.body.name,
             species: req.body.species,
