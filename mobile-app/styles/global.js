@@ -5,10 +5,17 @@ export const globalStyles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
+    textAlign: 'center'
   },
   paragraph: {
     marginVertical: 8,
     lineHeight: 20,
+  },
+  SpaceY1: {
+    marginVertical: 8,
+  },
+  SpaceY2: {
+    marginVertical: 30,
   },
   container: {
     flex: 1,
@@ -30,7 +37,24 @@ export const globalStyles = StyleSheet.create({
   },
   authStackMargin: {
     marginTop: 60,
-},
+  },
+  card: {
+    height: 250,
+    width: 220,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    padding: 10,
+    fontSize: 18,
+    borderRadius: 6,
+  },
+  image: {
+    height: 200,
+    width: 200,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    padding: 10,
+    borderRadius: 6,
+  }
 });
 
 export const images = {
