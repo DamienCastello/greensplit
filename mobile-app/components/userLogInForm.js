@@ -6,6 +6,7 @@ import { globalStyles } from '../styles/global.js';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import FlatButton from '../shared/button.js';
+import store from '../store/index';
 
 
 const reviewSchema = yup.object({
@@ -75,6 +76,13 @@ function UserLogInForm(props) {
             </View>
           )}
         </Formik>
+        <Button
+          style={globalStyles.SpaceY1}
+          title="check store"
+          onPress={() => {
+            console.log("my store:", store.getState(), this.props)
+          }}
+        />
       </View>
     </ScrollView>
 

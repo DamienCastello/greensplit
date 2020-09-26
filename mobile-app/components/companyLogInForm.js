@@ -34,44 +34,46 @@ function CompanyForm(props) {
   return (
 
     <ScrollView style={globalStyles.container}>
-      <Formik
-        initialValues={{ email: '', password: '' }}
-        validationSchema={reviewSchema}
-        onSubmit={(values, actions) => { 
-          let company = {
-            email: values.email,
-            password: values.password,
-          }
-          actions.resetForm();
-          // have to submit from store here
-          submit(company);
-        }}
-      >
-        {props => (
-          <View>
-            <TextInput
-              style={globalStyles.input}
-              placeholder='green@example.com'
-              onChangeText={props.handleChange('email')}
-              onBlur={props.handleBlur('email')}
-              value={props.values.email}
-            />
-            {/* only if the left value is a valid string, will the right value be displayed */}
-            <Text style={globalStyles.errorText}>{props.touched.email && props.errors.email}</Text>
+      <View style={globalStyles.authStackMargin}>
+        <Formik
+          initialValues={{ email: '', password: '' }}
+          validationSchema={reviewSchema}
+          onSubmit={(values, actions) => { 
+            let company = {
+              email: values.email,
+              password: values.password,
+            }
+            actions.resetForm();
+            // have to submit from store here
+            submit(company);
+          }}
+        >
+          {props => (
+            <View>
+              <TextInput
+                style={globalStyles.input}
+                placeholder='green@example.com'
+                onChangeText={props.handleChange('email')}
+                onBlur={props.handleBlur('email')}
+                value={props.values.email}
+              />
+              {/* only if the left value is a valid string, will the right value be displayed */}
+              <Text style={globalStyles.errorText}>{props.touched.email && props.errors.email}</Text>
 
-            <TextInput
-              style={globalStyles.input}
-              placeholder='********'
-              onChangeText={props.handleChange('password')}
-              onBlur={props.handleBlur('password')}
-              value={props.values.password}
-            />
-            <Text style={globalStyles.errorText}>{props.touched.password && props.errors.password}</Text>
+              <TextInput
+                style={globalStyles.input}
+                placeholder='********'
+                onChangeText={props.handleChange('password')}
+                onBlur={props.handleBlur('password')}
+                value={props.values.password}
+              />
+              <Text style={globalStyles.errorText}>{props.touched.password && props.errors.password}</Text>
 
-            <FlatButton onPress={props.handleSubmit} text='submit' />
-          </View>
-        )}
-      </Formik>
+              <FlatButton onPress={props.handleSubmit} text='submit' />
+            </View>
+          )}
+        </Formik>
+      </View>
     </ScrollView>
 
   );
