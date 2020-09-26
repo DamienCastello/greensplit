@@ -23,7 +23,7 @@ const reviewSchema = yup.object({
     .required()
 });
 
-function AddProductForm(props, {navigation}) {
+function AddProductForm(props) {
 
   const [preview, setPreview] = useState({ preview: '' });
   const [errors, setErrors] = useState([]);
@@ -61,7 +61,7 @@ function AddProductForm(props, {navigation}) {
               console.log("check props in AddProductForm", props)
               props.createProduct(product);
               console.log("check form after front validations:", product);
-              navigation.navigate('Home')
+              props.navigation.navigate('Home')
             }}
           >
           {props => (
@@ -109,13 +109,20 @@ function AddProductForm(props, {navigation}) {
             </View>
           )}
         </Formik>
+        <Button
+          style={globalStyles.SpaceY1}
+          title="check props"
+          onPress={() => {
+            console.log("my props:", props)
+          }}
+        />
       </View>
     </ScrollView>
     );
 }
 
 const mapStateToProps = (state) => ({
-    company: state.company,
+    company: state.auth.company,
 })
 
 const mapDispatchToProps = {

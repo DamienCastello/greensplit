@@ -37,6 +37,7 @@ export function loginCompany(company) {
     }
     try {
       const response = await axios.post(`${baseUrl}/auth/signin/company`, company);
+      console.log('check response on login company : ', response);
       return onSuccess(response);
     }
     catch (err) {

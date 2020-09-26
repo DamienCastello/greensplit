@@ -7,6 +7,7 @@ import Card from '../../shared/card';
 import ReviewForm from './reviewForm';
 import store from '../../store/index';
 import AddProductForm from '../../components/addProductForm';
+import UserHome from '../../components/userHome';
 
 
 export default function Home({ navigation }) {
@@ -18,21 +19,28 @@ export default function Home({ navigation }) {
   ]);
 
   console.log('STORE IN HOME', store.getState());
-  console.log('check company token from home : ', store.getState().company.token);
+  console.log('check company token from home : ', store.getState().auth.company.token);
 
-  const addReview = (review) => {
-    review.key = Math.random().toString();
-    setReviews((currentReviews) => {
-      return [review, ...currentReviews];
-    });
-    setModalOpen(false);
-  };
-
-  return (
-    <View style={globalStyles.container}>
-  { 
-  store.getState().company.token ? 
-       <Modal visible={modalOpen} animationType='slide'>
+  const roleSwitch = () => {
+    if(store.getState().auth.company.token !== false){
+      console.log("enter company");
+      return <Modal visible={modalOpen} animationType='slide'>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.modalContent}>
+          <MaterialIcons 
+            name='close'
+            size={24} 
+            style={{...styles.modalToggle, ...styles.modalClose}} 
+            onPress={() => setModalOpen(false)} 
+          />
+          <AddProductForm navigation={navigation}/>
+        </View>
+      </TouchableWithoutFeedback>
+   </Modal>
+    }
+    if(store.getState().auth.user.token !== false){
+      console.log("enter user");
+      return <Modal visible={modalOpen} animationType='slide'>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContent}>
               <MaterialIcons 
@@ -41,12 +49,14 @@ export default function Home({ navigation }) {
                 style={{...styles.modalToggle, ...styles.modalClose}} 
                 onPress={() => setModalOpen(false)} 
               />
-              <AddProductForm/>
+              <UserHome navigation={navigation} />
             </View>
           </TouchableWithoutFeedback>
        </Modal>
-  : 
-       <Modal visible={modalOpen} animationType='slide'>
+    }
+    if(store.getState().auth.runer.token !== false){
+      console.log("enter runer");
+      return <Modal visible={modalOpen} animationType='slide'>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContent}>
               <MaterialIcons 
@@ -59,9 +69,51 @@ export default function Home({ navigation }) {
             </View>
           </TouchableWithoutFeedback>
        </Modal>
+    }
   }
+
+  const addReview = (review) => {
+    review.key = Math.random().toString();
+    setReviews((currentReviews) => {
+      return [review, ...currentReviews];
+    });
+    setModalOpen(false);
+  };
+
+  return (
+    <View style={globalStyles.container}>
+  { store.getState().auth.company.token ?
       
 
+        <Modal visible={modalOpen} animationType='slide'>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.modalContent}>
+            <MaterialIcons 
+              name='close'
+              size={24} 
+              style={{...styles.modalToggle, ...styles.modalClose}} 
+              onPress={() => setModalOpen(false)} 
+            />
+            <AddProductForm navigation={navigation}/>
+          </View>
+        </TouchableWithoutFeedback>
+     </Modal>
+
+:
+        <Modal visible={modalOpen} animationType='slide'>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <View style={styles.modalContent}>
+                <MaterialIcons 
+                  name='close'
+                  size={24} 
+                  style={{...styles.modalToggle, ...styles.modalClose}} 
+                  onPress={() => setModalOpen(false)} 
+                />
+                <UserHome navigation={navigation} />
+              </View>
+            </TouchableWithoutFeedback>
+         </Modal>
+  }
       <MaterialIcons 
         name='add' 
         size={24} 
@@ -77,6 +129,7 @@ export default function Home({ navigation }) {
         </TouchableOpacity>
       )} />
       <Button
+          style={globalStyles.SpaceY1}
           title="check store"
           onPress={() => {
             console.log("my store:", store.getState())

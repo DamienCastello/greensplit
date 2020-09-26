@@ -1,13 +1,13 @@
 const models = require('../models');
 const Product = models.Product;
-const faker = require('faker');
+const { getHost } = require('../utils/ip');
 
 Product.create({
-    name: 'Moby Dick',
-    species: 'sativa',
-    price: Math.floor(Math.random() * 45)+20,
-    preview: faker.image.nature(),
-    stock: Math.floor(Math.random() * 45),
+    name: 'Amnesia Haze',
+    species: 'CBD',
+    price: 18,
+    preview: `${getHost()}/uploads/avatars/seed-product-1.jpg`,
+    stock: 20,
     companyId: 1
 })
 .then((response) => { console.log(response); })

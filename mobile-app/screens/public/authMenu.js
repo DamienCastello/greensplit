@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, Image } from 'react-native';
+import { ScrollView, View, Image, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { authStyles } from '../../styles/auth';
 import { globalStyles } from '../../styles/global';
@@ -11,6 +11,9 @@ class AuthMenu extends React.Component {
         return (
         <ScrollView>
             <View style={globalStyles.authStackMargin}>
+                <View style={globalStyles.SpaceY2}>
+                    <Text style={globalStyles.titleText}>Welcome in GREENSPLIT</Text>
+                </View>
                 <View style={authStyles.imgView}>
                     <Image style={authStyles.logo}
                             source={require('../../assets/img/logo-greensplit.jpg')}/>   
