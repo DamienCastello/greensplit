@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, FlatList, Modal,
   TouchableWithoutFeedback, Keyboard, Button } from 'react-native';
+import { connect } from 'react-redux';
 import { globalStyles } from '../../styles/global';
 import { MaterialIcons } from '@expo/vector-icons';
 import Card from '../../shared/card';
@@ -8,9 +9,11 @@ import ReviewForm from './reviewForm';
 import store from '../../store/index';
 import AddProductForm from '../../components/addProductForm';
 import UserHome from '../../components/userHome';
+import { showUser } from '../../store/actions/users';
 
 
-export default function Home({ navigation }) {
+
+function Home(props, { navigation }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [reviews, setReviews] = useState([
     { title: 'Zelda, Breath of Fresh Air', rating: 5, body: 'lorem ipsum', key: '1' },
@@ -18,29 +21,36 @@ export default function Home({ navigation }) {
     { title: 'Not So "Final" Fantasy', rating: 3, body: 'lorem ipsum', key: '3' },
   ]);
 
-  console.log('STORE IN HOME', store.getState());
-  console.log('check company token from home : ', store.getState().auth.company.token);
 
-  const roleSwitch = () => {
-    if(store.getState().auth.company.token !== false){
+  useEffect(() => {
+    props.showUser(store.getState().auth.user.id);
+  }, []);
+
+
+  console.log('STORE IN HOME', store.getState());
+
+  const roleSwitch = (auth) => {
+    console.log("auth of roleSwitch : ", auth);
+    if(auth.company.token){
       console.log("enter company");
       return <Modal visible={modalOpen} animationType='slide'>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.modalContent}>
-          <MaterialIcons 
-            name='close'
-            size={24} 
-            style={{...styles.modalToggle, ...styles.modalClose}} 
-            onPress={() => setModalOpen(false)} 
-          />
-          <AddProductForm navigation={navigation}/>
-        </View>
-      </TouchableWithoutFeedback>
-   </Modal>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.modalContent}>
+              <MaterialIcons 
+                name='close'
+                size={24} 
+                style={{...styles.modalToggle, ...styles.modalClose}} 
+                onPress={() => setModalOpen(false)} 
+              />
+              <AddProductForm navigation={navigation}/>
+            </View>
+          </TouchableWithoutFeedback>
+      </Modal>
     }
-    if(store.getState().auth.user.token !== false){
+    if(auth.user.token){
       console.log("enter user");
-      return <Modal visible={modalOpen} animationType='slide'>
+      return <View style={globalStyles.SpaceY1}>
+          <Text style={globalStyles.titleText}>Bienvenue {props.users.user.firstname} {props.users.user.lastname} !</Text><Modal visible={modalOpen} animationType='slide'>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContent}>
               <MaterialIcons 
@@ -53,8 +63,9 @@ export default function Home({ navigation }) {
             </View>
           </TouchableWithoutFeedback>
        </Modal>
+      </View>
     }
-    if(store.getState().auth.runer.token !== false){
+    if(auth.runer.token){
       console.log("enter runer");
       return <Modal visible={modalOpen} animationType='slide'>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -82,7 +93,8 @@ export default function Home({ navigation }) {
 
   return (
     <View style={globalStyles.container}>
-  { store.getState().auth.company.token ?
+  { roleSwitch(store.getState().auth)
+  /*store.getState().auth.company.token ?
       
 
         <Modal visible={modalOpen} animationType='slide'>
@@ -109,10 +121,10 @@ export default function Home({ navigation }) {
                   style={{...styles.modalToggle, ...styles.modalClose}} 
                   onPress={() => setModalOpen(false)} 
                 />
-                <UserHome navigation={navigation} />
+                <UserHome navigation={navigation}/>
               </View>
             </TouchableWithoutFeedback>
-         </Modal>
+         </Modal>*/
   }
       <MaterialIcons 
         name='add' 
@@ -132,7 +144,7 @@ export default function Home({ navigation }) {
           style={globalStyles.SpaceY1}
           title="check store"
           onPress={() => {
-            console.log("my store:", store.getState())
+            console.log("my store:", store.getState(), props)
           }}
         />
     </View>
@@ -158,3 +170,20 @@ const styles = StyleSheet.create({
     flex: 1,
   }
 });
+
+const mapStateToProps = (state) => ({
+  auth: {
+    user: state.auth.user,
+    company: state.auth.company,
+    runer: state.auth.runer
+  },
+  user: state.user,
+  users: state.users,
+  products: state.products
+})
+
+const mapDispatchToProps = {
+  showUser,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

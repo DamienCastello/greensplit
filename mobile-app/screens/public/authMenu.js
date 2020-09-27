@@ -12,7 +12,7 @@ class AuthMenu extends React.Component {
         <ScrollView>
             <View style={globalStyles.authStackMargin}>
                 <View style={globalStyles.SpaceY2}>
-                    <Text style={globalStyles.titleText}>Welcome in GREENSPLIT</Text>
+                    <Text style={globalStyles.titleText}>Bienvenue dans GREENSPLIT</Text>
                 </View>
                 <View style={authStyles.imgView}>
                     <Image style={authStyles.logo}

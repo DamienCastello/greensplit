@@ -7,9 +7,9 @@ import { globalStyles } from '../../styles/global';
 
 
 const cards = [
-  { title: 'Consumer', name: 'torso', type: 'foundation', key: '1' },
-  { title: 'Company', name: 'torsos-all', type: 'foundation', key: '2' },
-  { title: 'Deliverer', name: 'arrows-out', type: 'foundation', key: '3' },
+  { title: 'Consommateur', name: 'torso', type: 'foundation', key: '1' },
+  { title: 'Entreprise', name: 'torsos-all', type: 'foundation', key: '2' },
+  { title: 'Livreur', name: 'arrows-out', type: 'foundation', key: '3' },
 ];
 
 function SelectToLog({navigation}) {

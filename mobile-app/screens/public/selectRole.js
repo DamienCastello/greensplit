@@ -5,9 +5,9 @@ import Card from '../../shared/card';
 import { globalStyles } from '../../styles/global.js';
 
 const cards = [
-    { title: 'Consumer', name: 'torso', type: 'foundation', key: '1' },
-    { title: 'Company', name: 'torsos-all', type: 'foundation', key: '2' },
-    { title: 'Deliverer', name: 'arrows-out', type: 'foundation', key: '3' },
+    { title: 'Consommateur', name: 'torso', type: 'foundation', key: '1' },
+    { title: 'Entreprise', name: 'torsos-all', type: 'foundation', key: '2' },
+    { title: 'Livreur', name: 'arrows-out', type: 'foundation', key: '3' },
   ];
 
 function SelectRole({navigation}) {
@@ -16,24 +16,24 @@ function SelectRole({navigation}) {
   goLog = (role) => {
     console.log(navigation.state.params.selectedAuth);
     if (navigation.state.params.selectedAuth === 'login') {
-      if (role === 'Consumer') {
+      if (role === 'Consommateur') {
         navigation.navigate('LoginUser')
       } 
-      if (role === 'Company') {
+      if (role === 'Entreprise') {
         navigation.navigate('LoginCompany')
       }
-      if (role === 'Deliverer') {
+      if (role === 'Livreur') {
         navigation.navigate('LoginDeliverer')
       }
     }
     if (navigation.state.params.selectedAuth === 'signup') {
-      if (role === 'Consumer') {
+      if (role === 'Consommateur') {
         navigation.navigate('SignUpUser')
       }
-      if (role === 'Company') {
+      if (role === 'Entreprise') {
         navigation.navigate('SignUpCompany')
       }
-      if (role === 'Deliverer') {
+      if (role === 'Livreur') {
         navigation.navigate('SignUpDeliverer')
       }
     }
@@ -43,7 +43,6 @@ function SelectRole({navigation}) {
     cards.map((card) => {
         return (
           <View style={globalStyles.authStackMargin} key={card.key}>
-              <Text>{card.title}</Text>
               <TouchableOpacity onPress={() => {goLog(card.title)}}>
             <Card>
             <Text>{card.title}</Text>
