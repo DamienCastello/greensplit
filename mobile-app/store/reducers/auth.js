@@ -24,7 +24,7 @@ const defaultStates = {
 export default function (state = defaultStates, action) {
   switch (action.type) {
     case LOGIN_USER:
-      console.log("check action user : ", { ...state, user: { ...action.payload.user, token: action.payload.token, isConnected: true } })
+      console.log("check action auth user : ", { ...state, user: { ...action.payload.user, token: action.payload.token, isConnected: true } })
       return { ...state, user: { ...action.payload.user, token: action.payload.token, isConnected: true } };
       case LOGIN_COMPANY:
       return {  ...state, company: { ...action.payload.company, token: action.payload.token, isConnected: true } };

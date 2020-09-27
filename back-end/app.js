@@ -23,12 +23,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// Expose static /uploads folders to retrive upladed files.
+app.use('/uploads', express.static('uploads'));
 
 // Initialize auth strategies config
 localAuthStrategy;
 jwtAuthStrategy;
 
-app.use('/', indexRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', passport.authenticate('jwt', { session: false }), usersRouter);
 app.use('/api/v1/companies', companiesRouter);

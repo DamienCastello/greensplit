@@ -4,14 +4,17 @@ import { connect } from 'react-redux';
 import { globalStyles } from '../styles/global.js';
 import store from '../store/index';
 import { fetchProducts } from '../store/actions/product';
+import { showUser } from '../store/actions/users';
 
 const defaultProducts = [];
+const defaultUsers = [];
 
 class UserHome extends React.Component {
   constructor(props){
       super(props);
       this.state = {
         products: defaultProducts,
+        users: defaultUsers,
       };
   }
 
@@ -25,12 +28,11 @@ class UserHome extends React.Component {
       return (
         <ScrollView style={globalStyles.container}>
         <View style={globalStyles.authStackMargin}>
-         <Text>USER HOME</Text>
-         {this.props.products.map((product, index)=>{
+         {this.props.products.map((product)=>{
            console.log("product to display : ", product);
            return (
             <View style={globalStyles.container}>
-              <View style={globalStyles.card} key={index}>
+              <View style={globalStyles.card} key={product.id}>
                 <Text style={globalStyles.titleText}>{product.name} - {product.species}</Text>
                 <Text>Prix/g : {product.price}</Text>
                 <Text>Stock restants :{product.price}g</Text>
@@ -54,16 +56,19 @@ class UserHome extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    products: state.products,
-    auth: {
-      user: state.auth.user,
-      company: state.auth.company,
-      runer: state.auth.runer
-    }
+  auth: {
+    user: state.auth.user,
+    company: state.auth.company,
+    runer: state.auth.runer
+  },
+  user: state.user,
+  users: state.users,
+  products: state.products
 })
 
 const mapDispatchToProps = {
-  fetchProducts
+  fetchProducts,
+  showUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserHome)

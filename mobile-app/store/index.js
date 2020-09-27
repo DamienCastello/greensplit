@@ -5,7 +5,7 @@ import LocalStorage from 'redux-persist/lib/storage';
 import allReducer from './reducers';
 */
 import thunk from 'redux-thunk';
-import authReducer from './reducers/auth';
+//import authReducer from './reducers/auth';
 import rootReducer from './reducers';
 
 const preloadedState = {
@@ -28,6 +28,10 @@ const preloadedState = {
       isAdmin: false,
       isConnected: false
     }
+  },
+  users: {
+    user: {},
+    users: []
   },
   products: []
 };
