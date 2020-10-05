@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, FlatList, Modal,
-  TouchableWithoutFeedback, Keyboard, Button } from 'react-native';
+  TouchableWithoutFeedback, Keyboard, Button, Image, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { globalStyles } from '../../styles/global';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -10,8 +10,9 @@ import store from '../../store/index';
 import AddProductForm from '../../components/addProductForm';
 import UserHome from '../../components/userHome';
 import { showUser } from '../../store/actions/users';
+import AvatarUser from '../../components/avatarUser';
 
-
+let deviceWidth = Dimensions.get('window').width
 
 function Home(props, { navigation }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -50,7 +51,9 @@ function Home(props, { navigation }) {
     if(auth.user.token){
       console.log("enter user");
       return <View style={globalStyles.SpaceY1}>
-          <Text style={globalStyles.titleText}>Bienvenue {props.users.user.firstname} {props.users.user.lastname} !</Text><Modal visible={modalOpen} animationType='slide'>
+        <AvatarUser avatar={props.users.user.avatar} />
+        <Text style={globalStyles.titleText}>Bienvenue {props.users.user.firstname} {props.users.user.lastname} !</Text>
+        <Modal visible={modalOpen} animationType='slide'>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContent}>
               <MaterialIcons 
@@ -177,7 +180,6 @@ const mapStateToProps = (state) => ({
     company: state.auth.company,
     runer: state.auth.runer
   },
-  user: state.user,
   users: state.users,
   products: state.products
 })

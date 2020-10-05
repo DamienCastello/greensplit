@@ -48,12 +48,9 @@ export const globalStyles = StyleSheet.create({
     borderRadius: 6,
   },
   image: {
-    height: 200,
-    width: 200,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    padding: 10,
-    borderRadius: 6,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
   }
 });
 
